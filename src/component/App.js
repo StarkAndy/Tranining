@@ -30,7 +30,7 @@ class App extends Component{
   render(){
     return(
       <TouchableOpacity
-      onPress={()=>alert("hello")}    
+      onPress={()=>alert("Welcome !")}    
       >
         <Text style={{backgroundColor:'blue',padding:40,alignSelf:'center'}}>Hello</Text>
       </TouchableOpacity>
