@@ -6,12 +6,9 @@
  * @flow strict-local
  */
 
-import React,{ Component } from 'react';
-import {
-  TouchableOpacity,
-  View,
-  Text,
-} from 'react-native';
+import React, {Component} from 'react';
+import {TouchableOpacity, View, Text} from 'react-native';
+import {Cardlist, Cards} from './src/components/Cards/Cards';
 
 import {
   Header,
@@ -21,23 +18,14 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-
-class App extends Component{
-
-
-
-
-  render(){
-    return(
-      <TouchableOpacity
-      onPress={()=>alert("hello")}    
-      >
-        <Text style={{backgroundColor:'blue',padding:40,alignSelf:'center'}}>Hello</Text>
+class App extends Component {
+  render() {
+    return (
+      <TouchableOpacity onPress={() => alert('hello')}>
+        {Cardlist(Cards.Card1)}
       </TouchableOpacity>
-   
-    )
+    );
   }
-
 }
 
 export default App;
