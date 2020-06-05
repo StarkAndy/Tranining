@@ -1,7 +1,16 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {TouchableOpacity, View, Text, StyleSheet, Image} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import LottieView from 'lottie-react-native';
+import {
+  Container,
+  IntroText,
+  IntroTitle,
+  IllustrationView,
+  DescriptionView,
+  AnimationView,
+} from '../styledComponents';
+const animation = require('../../../assets/thirsty.json');
 const MusicScreen = ({route, navigation}) => {
   let {userName, action} = route.params;
   return (
@@ -40,6 +49,14 @@ const MusicScreen = ({route, navigation}) => {
           }}>
           <Text style={{color: '#23A6D9'}}>Go Back</Text>
         </TouchableOpacity>
+        <AnimationView>
+          <LottieView
+            source={animation}
+            autoPlay
+            style={{width: 180, height: 180}}
+            resizeMode="cover"
+          />
+        </AnimationView>
       </View>
     </View>
   );
