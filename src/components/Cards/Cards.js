@@ -1,53 +1,39 @@
 import React from 'react';
-import {Dimensions, Image, StyleSheet} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
 const {width} = Dimensions.get('window');
-const ratio = 228 / 362;
-export const CARD_WIDTH = width * 0.8;
+const ratio = 220 / 180;
+export const CARD_WIDTH = width * 0.42;
 export const CARD_HEIGHT = CARD_WIDTH * ratio;
 
 const styles = StyleSheet.create({
   card: {
-    width: CARD_WIDTH,
-    height: CARD_HEIGHT,
+    width: 156,
+    height: 180,
+    borderRadius: 6,
+    elevation: 3,
+    backgroundColor: '#292946',
+    shadowOffset: {width: 3, height: 3},
+    color: '#fff',
+    shadowColor: '#333',
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    marginHorizontal: 4,
+    marginVertical: 6,
   },
 });
 
-export const Cards = {
-  Card1: 'Card1',
-  Card2: 'Card2',
-  Card3: 'Card3',
-  Card4: 'Card4',
-  Card5: 'Card5',
-  Card6: 'Card6',
-};
-
-//const CardProps= {type: Cards}
-const CardList = (Cards) => {
-  let source;
-  switch (Cards) {
-    case Cards.Card1:
-      source = require('../../../assets/card1.png');
-      break;
-    case Cards.Card2:
-      source = require('../../../assets/card2.png');
-      break;
-    case Cards.Card3:
-      source = require('../../../assets/card3.png');
-      break;
-    case Cards.Card4:
-      source = require('../../../assets/card4.png');
-      break;
-    case Cards.Card5:
-      source = require('../../../assets/card5.png');
-      break;
-    case Cards.Card6:
-      source = require('../../../assets/card6.png');
-      break;
-    default:
-      throw Error('Invalid card style');
-  }
-  return <Image style={styles.card} {...{source}} />;
-};
-
-export default CardList;
+export default function Cards(props) {
+  return (
+    <TouchableOpacity style={{...styles.card, ...props.style}}>
+      {props.children}
+    </TouchableOpacity>
+  );
+}

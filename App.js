@@ -6,6 +6,7 @@
  * @format
  * @flow strict-local
  */
+<script src="http://localhost:8097" />;
 
 import React from 'react';
 import {TouchableOpacity, View, Text, StyleSheet, Image} from 'react-native';
