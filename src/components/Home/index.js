@@ -1,118 +1,65 @@
 /* eslint-disable no-new */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  FlatList,
-  Dimensions,
-} from 'react-native';
-import LottieView from 'lottie-react-native';
-import {
-  Container,
-  IntroText,
-  IntroTitle,
-  IllustrationView,
-  DescriptionView,
-  AnimationView,
-} from '../styledComponents';
-import {trendingAllWeek, IMAGE_ThumbNail_URL} from '../../api/movieService';
-import Cards from '../Cards/Cards';
-const animation = require('../../../assets/ninja.json');
-const {width} = Dimensions.get('window');
-const PREVIEW_WIDTH = width * 0.27;
+import React from 'react';
 
-const HomeScreen = () => {
-  const [loading, loadingStatus] = useState(false);
-  const [movieData, addData] = useState([]);
-  const getVoteStyle = (value) => {
-    if (value > 7.5) {
-      return {
-        backgroundColor: '#212138',
-        color: '#a9f157',
-      };
-    } else if (value >= 5 && value <= 7.5) {
-      return {
-        backgroundColor: '#212138',
-        color: '#e17f00',
-      };
-    } else {
-      return {
-        backgroundColor: '#212138',
-        color: 'red',
-      };
-    }
-  };
-  new Promise(async (resolve, reject) => {
-    const url = trendingAllWeek;
-    let test = [];
-    try {
-      const {data} = await axios.get(url);
-      addData(data);
-      resolve(data);
-    } catch (error) {
-      reject(error);
-      console.log(error);
-    }
-  });
+import {View, StyleSheet} from 'react-native';
+import Text from '../Text';
 
+import styled from 'styled-components';
+
+import {
+  trendingAllWeek,
+  IMAGE_ThumbNail_URL,
+  actionMovies,
+  adventureMovies,
+  fantasyScifiMovies,
+} from '../../api/movieService';
+import FlatListMovie from '../FlatList';
+
+const HomeScreen = ({navigation}) => {
+  //navigation={navigation} pass navigation like this as props for the parent to access
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}>
-      <FlatList
-        data={movieData.results}
-        horizontal={true}
-        renderItem={({item, index}) => {
-          if (item.original_title && item.original_title.length >= 19) {
-            return;
-          }
-          return (
-            <Cards>
-              <View
-                style={{
-                  flex: 1,
-                  borderRadius: 5,
-                }}>
-                <Image
-                  style={styles.cardImage}
-                  source={{uri: IMAGE_ThumbNail_URL(item.backdrop_path)}}
-                />
-                <View
-                  style={{
-                    flex: 1,
-                    height: '100%',
-                    justifyContent: 'flex-end',
-
-                    marginBottom: 4,
-                  }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}>
-                    <Text style={{alignSelf: 'flex-start', color: '#fff'}}>
-                      {item.original_title || item.original_name}
-                    </Text>
-
-                    <Text style={getVoteStyle(item.vote_average)}>
-                      {item.vote_average}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </Cards>
-          );
-        }}
-      />
-    </View>
+    <Container>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}>
+        <Text medium bold color="#83CFDF">
+          Trending Movies
+        </Text>
+        <FlatListMovie
+          navigation={navigation}
+          url={trendingAllWeek}
+          imageurl={IMAGE_ThumbNail_URL}
+        />
+        <Text medium bold color="#83CFDF">
+          Action Movies
+        </Text>
+        <FlatListMovie
+          navigation={navigation}
+          url={actionMovies}
+          imageurl={IMAGE_ThumbNail_URL}
+        />
+        <Text medium bold color="#83CFDF">
+          Adventure Movies
+        </Text>
+        <FlatListMovie
+          navigation={navigation}
+          url={adventureMovies}
+          imageurl={IMAGE_ThumbNail_URL}
+        />
+        <Text medium bold color="#83CFDF">
+          Fantasy/ScienceFitction
+        </Text>
+        <FlatListMovie
+          navigation={navigation}
+          url={fantasyScifiMovies}
+          imageurl={IMAGE_ThumbNail_URL}
+        />
+      </View>
+    </Container>
   );
 };
 export default HomeScreen;
@@ -125,4 +72,17 @@ const styles = StyleSheet.create({
     height: undefined,
     resizeMode: 'cover',
   },
+  button: {
+    marginTop: 32,
+    backgroundColor: '#23A6D9',
+    paddingVertical: 12,
+    width: 250,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
 });
+
+const Container = styled.SafeAreaView`
+  flex: 1;
+  background-color: #373b69;
+`;

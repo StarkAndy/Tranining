@@ -32,7 +32,9 @@ const styles = StyleSheet.create({
 
 export default function Cards(props) {
   return (
-    <TouchableOpacity style={{...styles.card, ...props.style}}>
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={{...styles.card, ...props.style}}>
       {props.children}
     </TouchableOpacity>
   );

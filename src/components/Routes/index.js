@@ -1,28 +1,36 @@
+import React from 'react';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-const Routes = createStackNavigator();
-
-const AppContainer = () => {
+import HomeScreen from '../Home/';
+import MovieDetail from '../MovieDetail/';
+const Main = createStackNavigator();
+const Settings = createBottomTabNavigator();
+const RoutesforNavigation = () => {
   return (
     <NavigationContainer>
-      <Routes.Navigator
+      <Main.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#23A6D9',
+            backgroundColor: '#272532',
           },
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: '200',
             fontSize: 30,
           },
-        }}>
-        <Routes.Screen name="Home" component={HomeScreen} />
-        <Routes.Screen name="Music" component={MusicScreen} />
-        <Routes.Screen name="Settings" component={SettingsTabs} />
-      </Routes.Navigator>
+        }}
+        headerMode="float"
+        animation="fade">
+        <Main.Screen name="Home" component={HomeScreen} />
+        <Main.Screen name="MovieDetail" component={MovieDetail} />
+      </Main.Navigator>
     </NavigationContainer>
   );
 };
 
-export default AppContainer;
+export default RoutesforNavigation;
