@@ -6,12 +6,12 @@
  * @flow strict-local
  */
 
-import React,{ Component } from 'react';
-import {
-  TouchableOpacity,
-  View,
-  Text,
-} from 'react-native';
+import React, {Component} from 'react';
+import {TouchableOpacity, View, Text} from 'react-native';
+
+import reducer from './src/pages/reducer';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 
 import {
   Header,
@@ -20,24 +20,20 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import SearchPage from './src/pages/SearchPage';
 
+const store = createStore(reducer);
 
-class App extends Component{
-
-
-
-
-  render(){
-    return(
-      <TouchableOpacity
-      onPress={()=>alert("hello")}    
-      >
-        <Text style={{backgroundColor:'blue',padding:40,alignSelf:'center'}}>Hello</Text>
-      </TouchableOpacity>
-   
-    )
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <View>
+          <SearchPage />
+        </View>
+      </Provider>
+    );
   }
-
 }
 
 export default App;
