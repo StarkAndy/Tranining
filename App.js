@@ -10,7 +10,9 @@ import React, {Component} from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
 
 import reducer from './src/pages/reducer';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import {logger} from 'redux-logger';
 import {Provider} from 'react-redux';
 
 import {
@@ -22,7 +24,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import SearchPage from './src/pages/SearchPage';
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 class App extends Component {
   render() {
